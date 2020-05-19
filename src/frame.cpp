@@ -8,7 +8,7 @@
 
 #include "frame.hpp"
 
-void Frame::init()
+void Frame::create()
 {
     Frame::set_size();
 }

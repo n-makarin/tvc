@@ -19,8 +19,9 @@ class Frame {
     int height;
     
 public:
-    void init();
+    void create();
     void set_size();
+    void print_empty_space();
 };
 
 #endif /* frame_hpp */

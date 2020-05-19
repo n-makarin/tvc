@@ -16,5 +16,5 @@ int main(int argc, const char * argv[]) {
 void print_frame()
 {
     Frame frame;
-    frame.init();
+    frame.create();
 }
