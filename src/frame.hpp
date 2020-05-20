@@ -30,6 +30,7 @@ class Frame {
 public:
     void create();
     void set_size();
+    void fill_by_empty_cells();
     void print();
     void print_string(int row, int col, const string val);
     

@@ -30,6 +30,11 @@ void Frame::print()
     std::cout << content << std::endl;
 }
 
+void Frame::fill_by_empty_cells()
+{
+    Frame::fill_content_by_empty_cells(width * height);
+}
+
 void Frame::print_string(int row, int col, const string val)
 {
     const int start_position{Frame::get_start_position(row, col)};
@@ -55,7 +60,7 @@ void Frame::fill_content_by_empty_cells(const int start_position)
 
 int Frame::get_start_position(int row, int col)
 {
-    return row * width - (width - col);
+    return (row + 1) * width - (width - col);
 }
 
 void Frame::parse_string_by_emoji(string &found_emoji, long &emoji_count,
