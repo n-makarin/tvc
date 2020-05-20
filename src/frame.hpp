@@ -29,6 +29,7 @@ class Frame {
     
 public:
     void create();
+    void print();
     void set_size();
     void print_string(int row, int col, const string val);
     
