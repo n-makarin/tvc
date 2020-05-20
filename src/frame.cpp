@@ -10,7 +10,7 @@
 
 const string brace_begin{"{"};
 const string brace_end{"}"};
-const string empty_cell{" "};
+const string empty_cell{"-"};
 
 void Frame::create()
 {
@@ -27,12 +27,20 @@ void Frame::set_size()
 
 void Frame::print()
 {
-    std::cout << content << std::endl;
+    std::cout << std::endl << content << std::endl;
 }
 
 void Frame::fill_by_empty_cells()
 {
     Frame::fill_content_by_empty_cells(width * height);
+    Frame::format_content_by_rows();
+}
+
+void Frame::format_content_by_rows()
+{
+    for (int i{1}; i < height; i++) {
+        content.replace(width * i, 1, "\n");
+    }
 }
 
 void Frame::print_string(int row, int col, const string val)
@@ -60,7 +68,7 @@ void Frame::fill_content_by_empty_cells(const int start_position)
 
 int Frame::get_start_position(int row, int col)
 {
-    return (row + 1) * width - (width - col);
+    return (row + 1) * width - (width - col - 1);
 }
 
 void Frame::parse_string_by_emoji(string &found_emoji, long &emoji_count,
