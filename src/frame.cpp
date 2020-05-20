@@ -31,22 +31,8 @@ void Frame::print_empty_cell(int row, int col)
 
 void Frame::print_string(int row, int col, const string val)
 {
-//    const int start_position{Frame::get_start_position(row, col)};
-
-    vector<string> emoji_match{};
-    long emoji_count{0};
-    
-    long text_size{0};
-    long string_size{0};
-    long emoji_size{0};
-
-    
-    Frame::parse_string_by_emoji(emoji_match, emoji_count, val);
-
-    emoji_size = emoji_count + (br_begin + br_end).size() * emoji_count;
-    
-    text_size = val.size() - emoji_match[0].size();
-    string_size = emoji_size + text_size;
+    const int start_position{Frame::get_start_position(row, col)};
+    long string_size{Frame::get_printing_string_size(val)};
     
     std::cout << string_size << std::endl << val.size();
 }
@@ -56,16 +42,29 @@ int Frame::get_start_position(int row, int col)
     return row * width - (width - col);
 }
 
-void Frame::parse_string_by_emoji(vector<string> &emoji_match, long &emoji_count, const string val)
+void Frame::parse_string_by_emoji(string &found_emoji, long &emoji_count, const string val)
 {
     const std::regex exp("\\" + br_begin + ".*\\" + br_end);
+    vector<string> emoji_match{};
     std::smatch match;
     string::const_iterator searchStart( val.cbegin() );
     while ( regex_search( searchStart, val.cend(), match, exp ) )
     {
-        string found_emoji{match[0]};
+        found_emoji = match[0];
         emoji_match.push_back(found_emoji);
         searchStart = match.suffix().first;
         emoji_count = std::count(found_emoji.begin(), found_emoji.end(), '{');;
     }
+}
+
+long Frame::get_printing_string_size(string val)
+{
+    string found_emoji;
+    long emoji_count{0};
+    Frame::parse_string_by_emoji(found_emoji, emoji_count, val);
+    long text_size{0};
+    long emoji_size{0};
+    emoji_size = emoji_count + (br_begin + br_end).size() * emoji_count;
+    text_size = val.size() - found_emoji.size();
+    return emoji_size + text_size;
 }
