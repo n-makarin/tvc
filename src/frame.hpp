@@ -34,7 +34,8 @@ public:
     
     void print_empty_cell(int row, int col);
     int get_start_position(int row, int col);
-    void parse_string_by_emoji(string &found_emoji, long &emoji_count, const string val);
+    void parse_string_by_emoji(string &found_emoji, long &emoji_count,
+                               const string val);
     long get_printing_string_size(string val);
 };
 

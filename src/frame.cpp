@@ -8,8 +8,8 @@
 
 #include "frame.hpp"
 
-const string br_begin{"{"};
-const string br_end{"}"};
+const string brace_begin{"{"};
+const string brace_end{"}"};
 
 void Frame::create()
 {
@@ -42,9 +42,10 @@ int Frame::get_start_position(int row, int col)
     return row * width - (width - col);
 }
 
-void Frame::parse_string_by_emoji(string &found_emoji, long &emoji_count, const string val)
+void Frame::parse_string_by_emoji(string &found_emoji, long &emoji_count,
+                                  const string val)
 {
-    const std::regex exp("\\" + br_begin + ".*\\" + br_end);
+    const std::regex exp("\\" + brace_begin + ".*\\" + brace_end);
     vector<string> emoji_match{};
     std::smatch match;
     string::const_iterator searchStart( val.cbegin() );
@@ -64,7 +65,7 @@ long Frame::get_printing_string_size(string val)
     Frame::parse_string_by_emoji(found_emoji, emoji_count, val);
     long text_size{0};
     long emoji_size{0};
-    emoji_size = emoji_count + (br_begin + br_end).size() * emoji_count;
+    emoji_size = emoji_count + (brace_begin + brace_end).size() * emoji_count;
     text_size = val.size() - found_emoji.size();
     return emoji_size + text_size;
 }
