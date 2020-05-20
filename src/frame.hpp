@@ -13,15 +13,28 @@
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#include <string>
+#include <regex>
+#include <vector>
+#include <algorithm>
+
+
+using std::string;
+using std::vector;
 
 class Frame {
     int width;
     int height;
+    string content;
     
 public:
     void create();
     void set_size();
-    void print_empty_space();
+    void print_string(int row, int col, const string val);
+    
+    void print_empty_cell(int row, int col);
+    int get_start_position(int row, int col);
+    void parse_string_by_emoji(vector<string> &emoji_match, long &emoji_count, const string val);
 };
 
 #endif /* frame_hpp */

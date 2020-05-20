@@ -17,4 +17,7 @@ void print_frame()
 {
     Frame frame;
     frame.create();
+//    frame.print_string(2, 2, "h");
+    frame.print_string(2, 2, "hello {🙂}{🤓}{😎}, what's up?");
+//    frame.print_string(2, 2, "🙂🤨🧐🤓😎d");
 }
