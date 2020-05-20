@@ -32,6 +32,7 @@ public:
     void set_size();
     void print_string(int row, int col, const string val);
     
+    
     void fill_content_by_empty_cells(const int start_position,
                           long string_size);
     int get_start_position(int row, int col);

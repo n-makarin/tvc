@@ -25,6 +25,17 @@ void Frame::set_size()
     height = size.ws_row;
 }
 
+void Frame::print_string(int row, int col, const string val)
+{
+    const int start_position{Frame::get_start_position(row, col)};
+    long string_size{Frame::get_printing_string_size(val)};
+    Frame::fill_content_by_empty_cells(start_position, string_size);
+    string parsed_val{Frame::remove_emoji_braces(val)};
+    content.append(parsed_val);
+    std::cout << content << std::endl;
+}
+
+
 void Frame::fill_content_by_empty_cells(const int start_position,
                                         long string_size)
 {
@@ -35,16 +46,6 @@ void Frame::fill_content_by_empty_cells(const int start_position,
     for (long i{content_size}; i < start_position; i++) {
         content.append(empty_cell);
     }
-}
-
-void Frame::print_string(int row, int col, const string val)
-{
-    const int start_position{Frame::get_start_position(row, col)};
-    long string_size{Frame::get_printing_string_size(val)};
-    Frame::fill_content_by_empty_cells(start_position, string_size);
-    string parsed_val{Frame::remove_emoji_braces(val)};
-    content.append(parsed_val);
-    std::cout << content << std::endl;
 }
 
 int Frame::get_start_position(int row, int col)
