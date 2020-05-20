@@ -34,14 +34,13 @@ void Frame::print_string(int row, int col, const string val)
 {
     const int start_position{Frame::get_start_position(row, col)};
     const long string_size{Frame::get_printing_string_size(val)};
-    Frame::fill_content_by_empty_cells(start_position, string_size);
+    Frame::fill_content_by_empty_cells(start_position);
     const string parsed_val{Frame::remove_emoji_braces(val)};
     content.replace(start_position, string_size, parsed_val);
 }
 
 
-void Frame::fill_content_by_empty_cells(const int start_position,
-                                        long string_size)
+void Frame::fill_content_by_empty_cells(const int start_position)
 {
     if (content.size() >= start_position) {
         return;
