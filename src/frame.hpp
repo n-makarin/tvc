@@ -37,6 +37,8 @@ public:
     int get_start_position(int row, int col);
     void parse_string_by_emoji(string &found_emoji, long &emoji_count,
                                const string val);
+    
+private:
     long get_printing_string_size(string val);
     string remove_emoji_braces(string val);
 };
