@@ -17,11 +17,6 @@ void Frame::create()
     Frame::set_size();
 }
 
-void Frame::print()
-{
-    std::cout << content << std::endl;
-}
-
 void Frame::set_size()
 {
     struct winsize size;
@@ -30,14 +25,18 @@ void Frame::set_size()
     height = size.ws_row;
 }
 
+void Frame::print()
+{
+    std::cout << content << std::endl;
+}
+
 void Frame::print_string(int row, int col, const string val)
 {
     const int start_position{Frame::get_start_position(row, col)};
-    
-    long string_size{Frame::get_printing_string_size(val)};
+    const long string_size{Frame::get_printing_string_size(val)};
     Frame::fill_content_by_empty_cells(start_position, string_size);
-    string parsed_val{Frame::remove_emoji_braces(val)};
-    content.append(parsed_val);
+    const string parsed_val{Frame::remove_emoji_braces(val)};
+    content.replace(start_position, string_size, parsed_val);
 }
 
 
