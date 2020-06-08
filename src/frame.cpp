@@ -8,8 +8,8 @@
 
 #include "frame.hpp"
 
-const string brace_begin{"{"};
-const string brace_end{"}"};
+const string emoji_begin{"{"};
+const string emoji_end{"}"};
 const string empty_cell{"-"};
 
 void Frame::create()
@@ -30,9 +30,9 @@ void Frame::print()
     std::cout << std::endl << content << std::endl;
 }
 
-void Frame::fill_by_empty_cells()
+void Frame::fill_with_empty_cells()
 {
-    Frame::fill_content_by_empty_cells(width * height);
+    Frame::fill_content_with_empty_cells(width * height);
     Frame::format_content_by_rows();
 }
 
@@ -47,13 +47,13 @@ void Frame::print_string(int row, int col, const string val)
 {
     const int start_position{Frame::get_start_position(row, col)};
     const long string_size{Frame::get_printing_string_size(val)};
-    Frame::fill_content_by_empty_cells(start_position);
+    Frame::fill_content_with_empty_cells(start_position);
     const string parsed_val{Frame::remove_emoji_braces(val)};
     content.replace(start_position, string_size, parsed_val);
 }
 
 
-void Frame::fill_content_by_empty_cells(const int start_position)
+void Frame::fill_content_with_empty_cells(const int start_position)
 {
     if (content.size() >= start_position) {
         return;
@@ -74,7 +74,7 @@ int Frame::get_start_position(int row, int col)
 void Frame::parse_string_by_emoji(string &found_emoji, long &emoji_count,
                                   const string val)
 {
-    const std::regex exp("\\" + brace_begin + ".*\\" + brace_end);
+    const std::regex exp("\\" + emoji_begin + ".*\\" + emoji_end);
     vector<string> emoji_match{};
     std::smatch match;
     string::const_iterator searchStart( val.cbegin() );
@@ -94,7 +94,7 @@ long Frame::get_printing_string_size(string val)
     Frame::parse_string_by_emoji(found_emoji, emoji_count, val);
     long text_size{0};
     long emoji_size{0};
-    emoji_size = emoji_count + (brace_begin + brace_end).size() * emoji_count;
+    emoji_size = emoji_count + (emoji_begin + emoji_end).size() * emoji_count;
     text_size = val.size() - found_emoji.size();
     return emoji_size + text_size;
 }
@@ -103,7 +103,7 @@ string Frame::remove_emoji_braces(string val)
 {
     string local_val;
     for (int i{0}; i < val.size(); i++) {
-        if (val[i] != brace_begin[0] && val[i] != brace_end[0]) {
+        if (val[i] != emoji_begin[0] && val[i] != emoji_end[0]) {
 
             local_val.push_back(val[i]);
         }

@@ -17,7 +17,7 @@ void print_frame()
 {
     Frame frame;
     frame.create();
-    frame.fill_by_empty_cells();
+    frame.fill_with_empty_cells();
 
     frame.print_string(0, 24, "|");
 
